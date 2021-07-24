@@ -26,17 +26,19 @@
                     {
                         <div class="col-lg-3 col-md-6 col-sm-12 m-2">
                             <div class="card  m-3" style="width: 100%">
+                                <div style="height: 300px;">
                                 @if (String.IsNullOrEmpty(item.image))
                                 {
-                                    <img style="height: 300px;" src="~/Content/uploads/avatar.png" alt=" @Html.DisplayFor(modelItem => item.title)" width="150px" height="150px" />
+                                    <img src="~/Content/uploads/avatar.png" alt=" @Html.DisplayFor(modelItem => item.title)" width="150px" height="150px" />
                                 }
                                 else
                                 {
-                                    <img style="height: 300px;" class="card-img-top" src="~/Content/uploads/@Html.DisplayFor(modelItem => item.image)" alt=" @Html.DisplayFor(modelItem => item.title)" />
+                                    <img class="card-img-top" src="~/Content/uploads/@Html.DisplayFor(modelItem => item.image)" alt=" @Html.DisplayFor(modelItem => item.title)" />
                                 }
+                                    </div>
 
 
-                                <div class="card-body">
+                                <div class="card-body" style="height: 180px;">
                                     <h5 class="card-title">
                                         @* @Html.DisplayFor(modelItem => item.title)*@
 
@@ -65,8 +67,8 @@
                                         <p style="font-weight:bold">Price:<br /> @Html.DisplayFor(modelItem => item.price) TND </p>
                                     </li>
                                     <li class="list-group-item">
-                                        <p style="font-weight:bold">
-                                            Category:
+                                        <p style="font-weight:bold;height:80px">
+                                            Category: <br/>
                                             @Html.ActionLink(item.category.name, "DisplayCategory", new { id = item.category.id })
                                         </p>
                                     </li>
