@@ -139,7 +139,7 @@ namespace Frontend_PI.Controllers
                     var resp = httpClient.PostAsJsonAsync("SpringMVC/servlet/addOrderDetails", commandeDetailsList).Result;
                     int statusCodeResp = (int)resp.StatusCode;
                     if (statusCodeResp == 200)
-                        Session['commandeDetailsList'] = null ;
+                        Session["commandeDetailsList"] = null ;
                     return RedirectToAction("Index");
                 }
                 else
