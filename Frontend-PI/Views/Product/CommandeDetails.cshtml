@@ -4,11 +4,9 @@
     ViewBag.Title = "CommandeDetails";
 }
 
-<h2>CommandeDetails</h2>
+<h2>Panier</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table table-bordered">
     <tr class="bg-info">
         <th>
@@ -45,7 +43,7 @@
             </td>
         </tr>
     }
-    <tr>
+    <tr style="background-color:antiquewhite">
         <th id="total" colspan="4" style="color : green">Total :</th>
         <td>@Frontend_PI.Controllers.ProductController.sumPriceProduct<span class="glyphicon glyphicon-usd"></span></td>
     </tr>
