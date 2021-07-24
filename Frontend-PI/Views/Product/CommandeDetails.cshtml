@@ -7,7 +7,7 @@
 <h2>Panier</h2>
 
 
-<table class="table table-bordered">
+<table class="table">
     <tr class="bg-info">
         <th>
             Nom du produit
@@ -36,9 +36,9 @@
                 <input type="number" value="@item.qte" onclick="updateQte(@item.idProduct,$(this).val())" style="width:80px" />
             </td>
             <td>
-                <button type="button" class="btn btn-default btn-sm">
+                <button type="button" class="btn btn-danger btn-sm">
                     <span class="glyphicon glyphicon-remove"></span>
-                    @Html.ActionLink("Delete", "deleteCommandDetail", new { id = item.idProduct })
+                    @Html.ActionLink("Delete", "deleteCommandDetail", new { id = item.idProduct }, new { @style = "color:white" })
                 </button>
             </td>
         </tr>
@@ -49,7 +49,7 @@
     </tr>
 </table>
 
-<center><a href="~/Commande/Create"><button>Confirmer la liste des achats</button></a></center>
+<center><a href="~/Commande/Create"><button class="btn btn-primary">Confirmer la liste des achats</button></a></center>
 <script>
     function updateQte(idProduct, qty) {
         var qteToUpdate = localStorage.getItem("qteToUpdate");

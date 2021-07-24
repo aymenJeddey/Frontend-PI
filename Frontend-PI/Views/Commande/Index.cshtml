@@ -54,10 +54,10 @@
         </td>
         <td>
 
-            @Html.ActionLink("Details", "Details", new { id = item.id, reference = item.reference }) |
+            @Html.ActionLink("Details", "Details", new { id = item.id, reference = item.reference }, new { @class = "btn btn-info" }) |
             @if (!Session["UserRole"].ToString().Equals("USER") && item.status.Equals("NEW"))
             {
-                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "btn btn-warning" })
             }
             @if (!item.status.Equals("NEW"))
             {
