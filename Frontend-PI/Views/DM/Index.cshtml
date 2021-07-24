@@ -151,10 +151,10 @@
     <div class="container">
         <div class="row">
 
-            <div class="form-group">
+            <div class="form-group " style="width:50%;background-color:antiquewhite">
 
-
-                @Html.LabelFor(model => model.idDeliveryMan)
+               @Html.LabelFor(model => model.idDeliveryMan)
+               
                 @Html.DropDownListFor(model => model.idDeliveryMan, Model.affected, new { @id = "idDM" })
             </div>
 
@@ -166,9 +166,9 @@
             <div class="form-group">
 
                 <table style="width:100%;display:none" id="table" class="table-bordered table-hover ">
-                    <th><button id="checkAll"> [X]</button> </th>
-                    <th>Reference </th>
-                    <th>Date de la Commande </th>
+                    <th class="bg-info"><button id="checkAll"> [X]</button> </th>
+                    <th class="bg-info">Reference </th>
+                    <th class="bg-info">Date de la Commande </th>
                     @if (Model.orders != null)
                     {
 
