@@ -24,13 +24,26 @@ namespace Frontend_PI.Controllers
 
 
         // GET: Stock
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            HttpResponseMessage responseMessage = httpClient.GetAsync(baseAddress + "findAllStock").Result;
-            if (responseMessage.IsSuccessStatusCode)
+            if (!String.IsNullOrEmpty(searchString))
             {
-                ViewBag.result = responseMessage.Content.ReadAsAsync<IEnumerable<Models.Stock>>().Result;
-                return View(ViewBag.result);
+                HttpResponseMessage responseMessageSearch = httpClient.GetAsync(baseAddress + "getProductByRow/" + searchString).Result;
+
+                if (responseMessageSearch.IsSuccessStatusCode)
+                {
+                    ViewBag.result = responseMessageSearch.Content.ReadAsAsync<IEnumerable<Models.Stock>>().Result;
+                    return View(ViewBag.result);
+                }
+            }
+            else
+            {
+                HttpResponseMessage responseMessage = httpClient.GetAsync(baseAddress + "findAllStock").Result;
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    ViewBag.result = responseMessage.Content.ReadAsAsync<IEnumerable<Models.Stock>>().Result;
+                    return View(ViewBag.result);
+                }
             }
             return View();
         }

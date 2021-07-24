@@ -4,13 +4,11 @@
     ViewBag.Title = "CommandeDetails";
 }
 
-<h2>CommandeDetails</h2>
+<h2>Panier</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
-    <tr>
+    <tr class="bg-info">
         <th>
             Nom du produit
         </th>
@@ -38,20 +36,20 @@
                 <input type="number" value="@item.qte" onclick="updateQte(@item.idProduct,$(this).val())" style="width:80px" />
             </td>
             <td>
-                <button type="button" class="btn btn-default btn-sm">
+                <button type="button" class="btn btn-danger btn-sm">
                     <span class="glyphicon glyphicon-remove"></span>
-                    @Html.ActionLink("Delete", "deleteCommandDetail", new { id = item.idProduct })
+                    @Html.ActionLink("Delete", "deleteCommandDetail", new { id = item.idProduct }, new { @style = "color:white" })
                 </button>
             </td>
         </tr>
     }
-    <tr>
+    <tr style="background-color:antiquewhite">
         <th id="total" colspan="4" style="color : green">Total :</th>
         <td>@Frontend_PI.Controllers.ProductController.sumPriceProduct<span class="glyphicon glyphicon-usd"></span></td>
     </tr>
 </table>
 
-<center><a href="~/Commande/Create"><button>Confirmer la liste des achats</button></a></center>
+<center><a href="~/Commande/Create"><button class="btn btn-primary">Confirmer la liste des achats</button></a></center>
 <script>
     function updateQte(idProduct, qty) {
         var qteToUpdate = localStorage.getItem("qteToUpdate");

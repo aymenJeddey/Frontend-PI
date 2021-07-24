@@ -55,7 +55,7 @@
                     <a href="#">Dashboard</a>
                 </li>
                 <li>
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Nômen</a>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Catalog Manager</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
                             <a href="/Category/Index">Category Manager</a>
@@ -65,6 +65,12 @@
                         </li>
                         <li>
                             <a href="/Stock/Index">Stock Manager</a>
+                        </li>
+                        <li>
+                            <a href="/Product/statNombreProductByCategory">Stats of Categories</a>
+                        </li>
+                        <li>
+                            <a href="/Product/statProductsByStock">Stats Product In Stock</a>
                         </li>
                     </ul>
                 </li>
@@ -79,7 +85,7 @@
                             <a href="/Product/CommandeDetails">Passer une commande</a>
                         </li>
                         <li>
-                            <a href="/feedback/index">Statistique</a>
+                            <a href="/Commande/StatistiqueCommande">Statistique</a>
                         </li>
                     </ul>
                 </li>
@@ -93,28 +99,44 @@
                             <a href="/user/userByFirstLastname">Filtre par utilisateur</a>
                         </li>
                         <li>
-                            <a href="/user/statLockUnlockUser">Stats User</a>
+                            <a href="/user/statLockUnlockUser">Statistiques </a>
                         </li>
                     </ul>
                 </li>
                 <li>
                     <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Gestion de la Livraison</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu2">
-                        <li>
-                            <a href="/DeliveryMan">Gestion Livreur</a>
-                        </li>
-                        <li>
-                            <a href="/DeliveryMan/AffecterCommande">Affectation Par Commande</a>
-                        </li>
-                        <li>
-                            <a href="/DM">Affectation En Masse</a>
-                        </li>
+                        @if (Session["UserRole"] != null && Session["UserRole"].ToString() != "DELIVERY_MAN")
+                        {
+                            <li>
+                                <a href="/DeliveryMan">Gestion Livreur</a>
+                            </li>
+                            <li>
+                                <a href="/DeliveryMan/AffecterCommande">Affectation Par Commande</a>
+                            </li>
+                            <li>
+                                <a href="/DM">Affectation En Masse</a>
+                            </li>
+
 
                         <li>
                             <a href="/DeliveryMan/Statistique">Statistique Général</a>
                         </li>
 
                     </ul>
+
+                            <li>
+                                <a href="/DeliveryMan/Statistique">Statistique Général</a>
+                            </li>
+                            }
+                            @if (Session["UserRole"] != null && Session["UserRole"].ToString() == "DELIVERY_MAN")
+                            {
+                                <li>
+                                    <a href="/DM/ListAffect">Confirmation livraison</a>
+                                </li>
+                            }
+                        </ul>
+
                 </li>
                 <li>
                     <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Social Network</a>
@@ -189,57 +211,62 @@
                                         </div>
                                     </div>
                                     <div class="dropdown tg-themedropdown tg-minicartdropdown">
-                                        <a href="javascript:void(0);" id="tg-minicart" class="tg-btnthemedropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="tg-themebadge">3</span>
-                                            <i class="icon-cart"></i>
-                                            <span>$123.00</span>
+                                        <a href="/Product/CommandeDetails">
+                                            @if (Session["commandeDetailsList"] != null)
+                                            {
+                                                List<Frontend_PI.Models.CommandeDetails> commandeDetails = (List<Frontend_PI.Models.CommandeDetails>)Session["commandeDetailsList"];
+                                                <span class="tg-themebadge">@commandeDetails.Count</span>
+
+                                                <i class="icon-cart" style="font-size:25px"></i>
+
+                                            }
                                         </a>
-                                        <div class="dropdown-menu tg-themedropdownmenu" aria-labelledby="tg-minicart">
-                                            <div class="tg-minicartbody">
-                                                <div class="tg-minicarproduct">
-                                                    <figure>
-                                                        <img src="~/Content/images/products/img-01.jpg" alt="image description">
+                                            <div class="dropdown-menu tg-themedropdownmenu" aria-labelledby="tg-minicart">
+                                                <div class="tg-minicartbody">
+                                                    <div class="tg-minicarproduct">
+                                                        <figure>
+                                                            <img src="~/Content/images/products/img-01.jpg" alt="image description">
 
-                                                    </figure>
-                                                    <div class="tg-minicarproductdata">
-                                                        <h5><a href="javascript:void(0);">Our State Fair Is A Great Function</a></h5>
-                                                        <h6><a href="javascript:void(0);">$ 12.15</a></h6>
+                                                        </figure>
+                                                        <div class="tg-minicarproductdata">
+                                                            <h5><a href="javascript:void(0);">Our State Fair Is A Great Function</a></h5>
+                                                            <h6><a href="javascript:void(0);">$ 12.15</a></h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tg-minicarproduct">
+                                                        <figure>
+                                                            <img src="~/Content/images/products/img-02.jpg" alt="image description">
+
+                                                        </figure>
+                                                        <div class="tg-minicarproductdata">
+                                                            <h5><a href="javascript:void(0);">Bring Me To Light</a></h5>
+                                                            <h6><a href="javascript:void(0);">$ 12.15</a></h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tg-minicarproduct">
+                                                        <figure>
+                                                            <img src="~/Content/images/products/img-03.jpg" alt="image description">
+
+                                                        </figure>
+                                                        <div class="tg-minicarproductdata">
+                                                            <h5><a href="javascript:void(0);">Have Faith In Your Soul</a></h5>
+                                                            <h6><a href="javascript:void(0);">$ 12.15</a></h6>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="tg-minicarproduct">
-                                                    <figure>
-                                                        <img src="~/Content/images/products/img-02.jpg" alt="image description">
-
-                                                    </figure>
-                                                    <div class="tg-minicarproductdata">
-                                                        <h5><a href="javascript:void(0);">Bring Me To Light</a></h5>
-                                                        <h6><a href="javascript:void(0);">$ 12.15</a></h6>
+                                                <div class="tg-minicartfoot">
+                                                    <a class="tg-btnemptycart" href="javascript:void(0);">
+                                                        <i class="fa fa-trash-o"></i>
+                                                        <span>Clear Your Cart</span>
+                                                    </a>
+                                                    <span class="tg-subtotal">Subtotal: <strong>35.78</strong></span>
+                                                    <div class="tg-btns">
+                                                        <a class="tg-btn tg-active" href="javascript:void(0);">View Cart</a>
+                                                        <a class="tg-btn" href="javascript:void(0);">Checkout</a>
                                                     </div>
-                                                </div>
-                                                <div class="tg-minicarproduct">
-                                                    <figure>
-                                                        <img src="~/Content/images/products/img-03.jpg" alt="image description">
-
-                                                    </figure>
-                                                    <div class="tg-minicarproductdata">
-                                                        <h5><a href="javascript:void(0);">Have Faith In Your Soul</a></h5>
-                                                        <h6><a href="javascript:void(0);">$ 12.15</a></h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tg-minicartfoot">
-                                                <a class="tg-btnemptycart" href="javascript:void(0);">
-                                                    <i class="fa fa-trash-o"></i>
-                                                    <span>Clear Your Cart</span>
-                                                </a>
-                                                <span class="tg-subtotal">Subtotal: <strong>35.78</strong></span>
-                                                <div class="tg-btns">
-                                                    <a class="tg-btn tg-active" href="javascript:void(0);">View Cart</a>
-                                                    <a class="tg-btn" href="javascript:void(0);">Checkout</a>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                 </div>
                    
                             </div>
@@ -263,7 +290,7 @@
 
                                   
                                         <ul>
-                                            @if (Session["Username"] != null && Session["UserRole"] != null)
+                                            @if (Session["UserRole"] != null && (Session["UserRole"].ToString()=="ADMIN" || Session["UserRole"].ToString() == "DELIVERY_MAN"))
                                             {
                                                 <li>
 

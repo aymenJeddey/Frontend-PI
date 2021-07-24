@@ -1,45 +1,71 @@
 ﻿@model IEnumerable<Frontend_PI.Models.Stock>
 
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
+@using (Html.BeginForm())
+{
+    <table>
         <tr>
-
-            <th>
-                @Html.DisplayNameFor(model => model.product)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.qte)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.stockPosition)
-            </th>
+            <td>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Select the Position in stock </label>
+                    <select style="height: 34px; display: inline" class="form-control" name="searchString" id="exampleFormControlSelect1">
+                        @foreach (var item in Model) {
+                        <option value="@Html.DisplayFor(modelItem => item.stockPosition)">@Html.DisplayFor(modelItem => item.stockPosition)</option>
+                        }
+                    </select>
+                </div>
+                @*<div class="search-input">
+                    Search by title: @Html.TextBox("searchString")
+                </div>*@
+            </td>
+            <td>
+                <button type="submit" class="btn"><i class="icon-magnifier"></i></button>
+            </td>
+            
         </tr>
-    
-    @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.product.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.qte)
-        </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.stockPosition)
-        </td>
-
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.id })
-        </td>
-    </tr>
-    }
-    
     </table>
+
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create",null, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.product)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.qte)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.stockPosition)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.product.title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.qte)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.stockPosition)
+    </td>
+   
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.id },  new { @class = "btn btn-success"}) 
+        @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+    </td>
+</tr>
+    }
+
+</table>
 

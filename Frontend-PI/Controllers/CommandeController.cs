@@ -22,6 +22,8 @@ namespace Frontend_PI.Controllers
         // GET: Commande
         public ActionResult Index()
         {
+            if (Session["id"] == null)
+                return RedirectToAction("LoginUser", "User");
             List<Commande> commandes = new List<Commande>();
             HttpClient httpClient = new HttpClient();
             String id = Session["id"].ToString();
@@ -135,6 +137,9 @@ namespace Frontend_PI.Controllers
                         commandeDetails.idOrder = addedCommand.id ;
                     }
                     var resp = httpClient.PostAsJsonAsync("SpringMVC/servlet/addOrderDetails", commandeDetailsList).Result;
+                    int statusCodeResp = (int)resp.StatusCode;
+                    if (statusCodeResp == 200)
+                        Session["commandeDetailsList"] = null ;
                     return RedirectToAction("Index");
                 }
                 else
@@ -186,7 +191,7 @@ namespace Frontend_PI.Controllers
         {
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri("http://localhost:8081");
-            httpClient.DeleteAsync("SpringMVC/servlet/deleteOrder/" + id);
+            //httpClient.DeleteAsync("SpringMVC/servlet/deleteOrder/" + id);
 
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage responseMessage = httpClient.GetAsync("SpringMVC/servlet/findOrderById/" + id).Result;
@@ -201,7 +206,9 @@ namespace Frontend_PI.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                HttpClient httpClient = new HttpClient();
+                httpClient.BaseAddress = new Uri("http://localhost:8081");
+                httpClient.DeleteAsync("SpringMVC/servlet/deleteOrder/" + id);
 
                 return RedirectToAction("Index");
             }
