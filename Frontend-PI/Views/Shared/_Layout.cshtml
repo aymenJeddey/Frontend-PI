@@ -93,7 +93,7 @@
                             <a href="/user/userByFirstLastname">Filtre par utilisateur</a>
                         </li>
                         <li>
-                            <a href="/user/statLockUnlockUser">Stats User</a>
+                            <a href="/user/statLockUnlockUser">Statistiques </a>
                         </li>
                     </ul>
                 </li>
@@ -283,7 +283,7 @@
                                     </div>
                                     <div id="tg-navigation" class="collapse navbar-collapse tg-navigation">
                                         <ul>
-                                            @if (Session["Username"] != null && Session["UserRole"] != null)
+                                            @if (Session["UserRole"] != null && Session["UserRole"].ToString()=="ADMIN")
                                             {
                                                 <li>
                                                     <button type="button" id="sidebarCollapse" class="btn btn-info">
