@@ -11,8 +11,12 @@
                 </div>
             </td>
             <td>
-                <button type="submit"><i class="icon-magnifier"></i></button>
+                <button type="submit" class="btn"><i class="icon-magnifier"></i></button>
             </td>
+            <td>
+                <button type="reset" class="btn btn-danger" onclick="location.href = 'https://localhost:44304/Product/allproducts';">Reset</button>
+            </td>
+
         </tr>
     </table>
 
@@ -26,17 +30,17 @@
                 <div class="card  m-3" style="width: 100%">
                     @if (String.IsNullOrEmpty(item.image))
                     {
-                        <img style="height: 200px;" src="~/Content/uploads/avatar.png" alt=" @Html.DisplayFor(modelItem => item.title)" width="150px" height="150px" />
+                        <img style="height: 300px;" src="~/Content/uploads/avatar.png" alt=" @Html.DisplayFor(modelItem => item.title)" width="150px" height="150px" />
                     }
                     else
                     {
-                        <img style="height: 200px;" class="card-img-top" src="~/Content/uploads/@Html.DisplayFor(modelItem => item.image)" alt=" @Html.DisplayFor(modelItem => item.title)" />
+                        <img style="height: 300px;" class="card-img-top" src="~/Content/uploads/@Html.DisplayFor(modelItem => item.image)" alt=" @Html.DisplayFor(modelItem => item.title)" />
                     }
 
 
                     <div class="card-body">
                         <h5 class="card-title"> @Html.DisplayFor(modelItem => item.title)</h5>
-                        <p class="card-text">@Html.DisplayFor(modelItem => item.description)</p>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.descriptionTrimmed)</p>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">

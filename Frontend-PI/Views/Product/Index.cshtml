@@ -1,7 +1,27 @@
 @model IEnumerable<Frontend_PI.Models.Product>
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>
+                <div class="search-input">
+                    Search by title: @Html.TextBox("searchString")
+                </div>
+            </td>
+            <td>
+                <button type="submit" class="btn"><i class="icon-magnifier"></i></button>
+            </td>
+            <td>
+                <button type="reset" class="btn btn-danger" onclick="location.href = 'https://localhost:44304/Product/';">Reset</button>
+            </td>
+        </tr>
+    </table>
+
+}
+
 
 <p>
-    @Html.ActionLink("Create New", "Create",null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
 </p>
 <table class="table">
     <tr>
@@ -14,61 +34,66 @@
         <th>
             @Html.DisplayNameFor(model => model.price)
         </th>
+        <th> @Html.DisplayNameFor(model => model.category)</th>
         <th> @Html.DisplayNameFor(model => model.image)</th>
     </tr>
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.title)
-        <div>
-            @for (int i = 0; i < Frontend_PI.Controllers.FeedBackController.rating(@item.id); i++)
-            {
-                <span class="fa fa-star" style="color: orange"></span>
-            }
-        </div>
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.publicationDate)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.price) <span class="glyphicon glyphicon-usd"></span>
-    </td>
-    <td>
-        @if ( String.IsNullOrEmpty(item.image))
-        {
-            <img src="~/Content/uploads/avatar.png" alt=" @Html.DisplayFor(modelItem => item.title)" width="150px" height="150px" />
-        }
-        else {
-        <img src="~/Content/uploads/@Html.DisplayFor(modelItem => item.image)" alt=" @Html.DisplayFor(modelItem => item.title)" width="150px" height="150px" />
-        }
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "btn btn-success" }) 
-        @Html.ActionLink("Details", "Details", new { id = item.id }, new { @class = "btn btn-warning" }) 
-        @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
-    </td>
-    <td>
-        @*@{
-            List<Frontend_PI.Models.CommandeDetails> commandeDetailsSession = (List<Frontend_PI.Models.CommandeDetails>)Session["commandeDetailsList"];
-            Frontend_PI.Controllers.ProductController p = new Frontend_PI.Controllers.ProductController();
-            Boolean exist = p.checkIfexistElement(item.id, commandeDetailsSession);
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+                <div>
+                    @for (int i = 0; i < Frontend_PI.Controllers.FeedBackController.rating(@item.id); i++)
+                    {
+                        <span class="fa fa-star" style="color: orange"></span>
+                    }
+                </div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.publicationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price) <span class="glyphicon glyphicon-usd"></span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.category.name)
+            </td>
+            <td>
+                @if (String.IsNullOrEmpty(item.image))
+                {
+                    <img src="~/Content/uploads/avatar.png" alt=" @Html.DisplayFor(modelItem => item.title)" width="150px" height="150px" />
+                }
+                else
+                {
+                    <img src="~/Content/uploads/@Html.DisplayFor(modelItem => item.image)" alt=" @Html.DisplayFor(modelItem => item.title)" width="150px" height="150px" />
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Details", "Details", new { id = item.id }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+            </td>
+            <td>
+                @*@{
+                        List<Frontend_PI.Models.CommandeDetails> commandeDetailsSession = (List<Frontend_PI.Models.CommandeDetails>)Session["commandeDetailsList"];
+                        Frontend_PI.Controllers.ProductController p = new Frontend_PI.Controllers.ProductController();
+                        Boolean exist = p.checkIfexistElement(item.id, commandeDetailsSession);
 
-            if (exist)
-            {
-                <span id="rate" style="margin-right: -20px;color:green" class="glyphicon glyphicon-ok-sign"></span>
-            }
-            else
-            {
-                <input id="@Html.DisplayFor(modelItem => item.id)qty" class="form-control qte" name="qte" placeholder="Quantity" style="width: 113px;display: inherit;margin-right: 25px;" type="number" />
-                <span id=" @Html.DisplayFor(modelItem => item.id)" style="cursor: pointer;margin-right: 25px;" class="glyphicon glyphicon-shopping-cart add-to-list"></span>
-                <span id="rate" style="cursor: pointer;margin-right: 25px;" class="glyphicon glyphicon-star-empty" data-toggle="modal" data-target="#form" onclick="localStorage.setItem('productID', @item.id);"></span>
+                        if (exist)
+                        {
+                            <span id="rate" style="margin-right: -20px;color:green" class="glyphicon glyphicon-ok-sign"></span>
+                        }
+                        else
+                        {
+                            <input id="@Html.DisplayFor(modelItem => item.id)qty" class="form-control qte" name="qte" placeholder="Quantity" style="width: 113px;display: inherit;margin-right: 25px;" type="number" />
+                            <span id=" @Html.DisplayFor(modelItem => item.id)" style="cursor: pointer;margin-right: 25px;" class="glyphicon glyphicon-shopping-cart add-to-list"></span>
+                            <span id="rate" style="cursor: pointer;margin-right: 25px;" class="glyphicon glyphicon-star-empty" data-toggle="modal" data-target="#form" onclick="localStorage.setItem('productID', @item.id);"></span>
 
-            }
-        }*@
-    </td>
-</tr>
+                        }
+                    }*@
+            </td>
+        </tr>
     }
 
 </table>
