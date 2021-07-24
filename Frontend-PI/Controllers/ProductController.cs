@@ -238,14 +238,26 @@ namespace Frontend_PI.Controllers
         }
 
             // GET: Product
-            public ActionResult Index()
+            public ActionResult Index(string searchString)
 
         {
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                HttpResponseMessage responseMessageSearch = httpClient.GetAsync(baseAddress + "getProductByTitle/" + searchString).Result;
+
+                if (responseMessageSearch.IsSuccessStatusCode)
+                {
+                    ViewBag.result = responseMessageSearch.Content.ReadAsAsync<IEnumerable<Models.Product>>().Result;
+                    return View(ViewBag.result);
+                }
+            }
+            else { 
             HttpResponseMessage responseMessage = httpClient.GetAsync(baseAddress+ "findAllProduct").Result;
             if (responseMessage.IsSuccessStatusCode)
             {
                 ViewBag.result = responseMessage.Content.ReadAsAsync<IEnumerable<Models.Product>>().Result;
                 return View(ViewBag.result);
+            }
             }
             return View();
 
