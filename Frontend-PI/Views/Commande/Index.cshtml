@@ -53,9 +53,16 @@
             @Html.DisplayFor(modelItem => item.codePostal)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id , reference = item.reference }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+
+            @Html.ActionLink("Details", "Details", new { id = item.id, reference = item.reference }) |
+            @if (!Session["UserRole"].ToString().Equals("USER") && item.status.Equals("NEW"))
+            {
+                @Html.ActionLink("Delete", "Delete", new { id = item.id })
+            }
+            @if (!item.status.Equals("NEW"))
+            {
+                <label>En cours</label>
+            }
         </td>
     </tr>
 }

@@ -345,6 +345,7 @@
     <Content Include="Views\Commande\StatistiqueCommande.cshtml" />
     <Content Include="Views\Product\statNombreProductByCategory.cshtml" />
     <Content Include="Views\Product\statProductsByStock.cshtml" />
+    <Content Include="Views\Commande\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Commande\Index.cshtml" />
