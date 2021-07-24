@@ -293,7 +293,7 @@ namespace Frontend_PI.Controllers
             if (Session["Id"] == null)
                 return View();
 
-            if (user!=null && user.username != null)
+            if (user!=null && user.firstName != null)
             {
                 try
                 {
@@ -306,7 +306,7 @@ namespace Frontend_PI.Controllers
                         User newUser = APIResponse.Result.Content.ReadAsAsync<User>().Result;
                         if (newUser != null)
                         {
-                            return RedirectToAction("LoginUser");
+                            return RedirectToAction("index","Home");
                         }
                         else
                         {
@@ -339,7 +339,7 @@ namespace Frontend_PI.Controllers
             {
                 var APIResponse = httpClient.DeleteAsync(baseAddress + "deleteUser/" + id
                 ).ContinueWith(postTask => postTask.Result.EnsureSuccessStatusCode());
-                return RedirectToAction("LoginUser");
+                return RedirectToAction("index", "Home");
             }
             catch
             {
