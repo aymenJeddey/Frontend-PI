@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Frontend_PI.Models.Product>
+@model IEnumerable<Frontend_PI.Models.Product>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create",null, new { @class = "btn btn-primary" })
 </p>
 <table class="table">
     <tr>
@@ -14,7 +14,7 @@
         <th>
             @Html.DisplayNameFor(model => model.price)
         </th>
-        <th></th>
+        <th> @Html.DisplayNameFor(model => model.image)</th>
     </tr>
 
     @foreach (var item in Model)
@@ -36,12 +36,21 @@
         @Html.DisplayFor(modelItem => item.price) <span class="glyphicon glyphicon-usd"></span>
     </td>
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+        @if ( String.IsNullOrEmpty(item.image))
+        {
+            <img src="~/Content/uploads/avatar.png" alt=" @Html.DisplayFor(modelItem => item.title)" width="150px" height="150px" />
+        }
+        else {
+        <img src="~/Content/uploads/@Html.DisplayFor(modelItem => item.image)" alt=" @Html.DisplayFor(modelItem => item.title)" width="150px" height="150px" />
+        }
     </td>
     <td>
-        @{
+        @Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "btn btn-success" }) 
+        @Html.ActionLink("Details", "Details", new { id = item.id }, new { @class = "btn btn-warning" }) 
+        @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
+    </td>
+    <td>
+        @*@{
             List<Frontend_PI.Models.CommandeDetails> commandeDetailsSession = (List<Frontend_PI.Models.CommandeDetails>)Session["commandeDetailsList"];
             Frontend_PI.Controllers.ProductController p = new Frontend_PI.Controllers.ProductController();
             Boolean exist = p.checkIfexistElement(item.id, commandeDetailsSession);
@@ -57,13 +66,12 @@
                 <span id="rate" style="cursor: pointer;margin-right: 25px;" class="glyphicon glyphicon-star-empty" data-toggle="modal" data-target="#form" onclick="localStorage.setItem('productID', @item.id);"></span>
 
             }
-        }
+        }*@
     </td>
 </tr>
     }
 
 </table>
-<center><a href="~/Product/CommandeDetails"><button>Valider</button></a></center>
 <!-- Modal -->
 <button data-toggle="modal" data-target="#exampleModal" id="showModalConfirmAdd"></button>
 
