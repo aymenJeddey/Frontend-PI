@@ -22,6 +22,8 @@ namespace Frontend_PI.Controllers
         // GET: Commande
         public ActionResult Index()
         {
+            if (Session["id"] == null)
+                return RedirectToAction("LoginUser", "User");
             List<Commande> commandes = new List<Commande>();
             HttpClient httpClient = new HttpClient();
             String id = Session["id"].ToString();
